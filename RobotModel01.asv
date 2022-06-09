@@ -90,7 +90,7 @@ bp1 = sp1 + [0; c1*hypot_hat];
 
 %bp3 is sp1 plus the variable v1 in x
 %yz position of bp5 is 
-bp5yz = 
+bp5
 
 %% collect and plot all points
 
