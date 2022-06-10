@@ -1,7 +1,6 @@
-%% Bat robot
-clear
-clc
-close all
+function BatPoints = CreateBatPoints(theta)
+%This function creates the points and lines that define the bat robot
+%Input is the motor angle/process variable theta
 
 %% default dimensions
 s1 = 26.5;
@@ -59,10 +58,7 @@ sp2 = [-b9; -(s1/2)-s8; -b10];
 sp3 = [-b11; -(s1/2); -b12];
 sp4 = [-b13; -b14; -b15];
 
-sp = [sp1,sp2,sp3,sp4];
-
-%% Process Variable
-theta = 3*pi/2;
+BatPoints.sp = [sp1,sp2,sp3,sp4];
 
 %% body Points
 bp7 = sp3 + [b6*sin(theta); -s8; b6*cos(theta)];
@@ -105,7 +101,7 @@ bp3 = [bp5(1); sp1(2:3)];
 bp4 = [bp5(1); sp1(2)-c4*cos(beta); sp1(3)+c4*sin(beta)]; 
 v1 = abs(bp3(1)-sp1(1));
 
-bp = [bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8];
+BatPoints.bp = [bp1,bp2,bp3,bp4,bp5,bp6,bp7,bp8];
 
 %% 2D wing points (in x and y as if beta = 0)
 wp1 = [0; 0; 0];
@@ -127,41 +123,15 @@ wp9 = wp8 + dir*w10;
 wp2d = [wp1,wp2,wp3,wp4,wp5,wp6,wp7,wp8,wp9];
 
 rotateWingPoints = @(wPts,angle,basePoint) [wPts(1,:); wPts(2,:)*cos(angle); -wPts(2,:)*sin(angle)] + basePoint;
-wp = rotateWingPoints(wp2d,beta,bp1);
+BatPoints.wp = rotateWingPoints(wp2d,beta,bp1);
 
 %% collect and plot all points
 
-plotPoints = @(setOfPoints,color) plot3(setOfPoints(1,:),setOfPoints(2,:),setOfPoints(3,:),color);
-plotPointsFlip = @(setOfPoints,color) plot3(setOfPoints(1,:),-setOfPoints(2,:),setOfPoints(3,:),color);
-
-linesK1 = [sp3 bp7 bp8 bp2];
-linesK2 = [bp7 bp9 sp2 bp6 bp5];
-linesB1 = [bp5 bp3 bp4];
-linesB2 = [bp2 cp0 bp1 sp1];
+BatPoints.linesK1 = [sp3 bp7 bp8 bp2];
+BatPoints.linesK2 = [bp7 bp9 sp2 bp6 bp5];
+BatPoints.linesB1 = [bp5 bp3 bp4];
+BatPoints.linesB2 = [bp2 cp0 bp1 sp1];
 linesR12d = [wp3 wp2 wp4 wp7 wp9 wp8 wp6 wp1];
-linesR1 = rotateWingPoints(linesR12d,beta,bp1);
+BatPoints.linesR1 = rotateWingPoints(linesR12d,beta,bp1);
 
-figure(1)
-hold on
-grid on
-axis equal
-plotPoints(sp,'ko')
-plotPoints(bp,'bo')
-plotPoints(wp,'rx')
-plotPoints(linesK1,'k')
-plotPoints(linesK2,'k')
-plotPoints(linesB1,'b')
-plotPoints(linesB2,'b')
-plotPoints(linesR1,'r')
-plotcube([s10 s1 20],[-s10 -s1/2 -10],0.8,[0 0 1])
-
-plotPointsFlip(sp,'ko')
-plotPointsFlip(bp,'bo')
-plotPointsFlip(wp,'rx')
-plotPointsFlip(linesK1,'k')
-plotPointsFlip(linesK2,'k')
-plotPointsFlip(linesB1,'b')
-plotPointsFlip(linesB2,'b')
-plotPointsFlip(linesR1,'r')
-plotcube([5 5 5],[20 20 20],.8,[0 0 1]);
     
