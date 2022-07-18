@@ -15,3 +15,8 @@ Each step of the design should have a base functioning setup. Easy practicality 
 1. Yohan has a new design of multiple gears which should: isolate the flapping and folding actions, simplify the number of variables for flapping and folding.
 2. In the code connect the design of the mechanism and the wings in order to get the motions we want.
 3. Setup an optimizaiton
+
+
+## Code Details
+
+There are three independent variables that define a flapping motion for a single DOF wing. The wing angle alpha (zero is arms straight out) and the shoulder distance beta (distance from wp1 to wp2.

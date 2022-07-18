@@ -1,0 +1,12 @@
+function [outputArg1,outputArg2] = CreateWingShape(inputArg1,inputArg2)
+%CREATEWINGSHAPE Ths function creates a WingShape that is usable by the bat
+%robot Optimization code.
+%
+%A WingShape consists of a number of wing Points N, an NxN upper-diagonal
+%connectivity matrix that is 
+
+
+outputArg1 = inputArg1;
+outputArg2 = inputArg2;
+end
+

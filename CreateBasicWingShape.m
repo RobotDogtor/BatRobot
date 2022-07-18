@@ -1,0 +1,55 @@
+function wingShape = CreateBasicWingShape()
+%CREATEWINGSHAPE Ths function creates a WingShape that is usable by the bat
+%robot Optimization code.
+%
+%A WingShape consists of 
+% N - a number of wing Points N
+% M - number of connections 
+% ConnectivityMatrix - an NxN upper-diagonal connectivity matrix (with zero
+%                      diagonal) with  zero or 1 in the spot if the two 
+%                      points are connected. Connectivity is 1 if two
+%                      points share a rigid body. If a single body has
+%                      many points, then each point is connected to each
+%                      other.
+% ConnectionLengths - 1xM array of lenghts of connections between points.
+
+%Millimeters!
+
+%Note: the top left 2x2 corner of the connectivity matrix should always be
+%zero. It is assumed that point wp1 is the origin of the wing, and point
+%wp2 is directly below wp1 at a distance beta, which is the shoulder
+%distance, one of the two independent variables.
+
+    wingShape.N = 9;
+    %                               1 2 3 4 5 6 7 8 9
+    wingShape.ConnectivityMatrix = [0 0 1 0 1 1 0 0 0 ;%1
+                                    0 0 1 1 0 0 0 0 0 ;%2
+                                    0 0 0 0 1 1 0 0 0 ;%3
+                                    0 0 0 0 1 0 1 0 0 ;%4
+                                    0 0 0 0 0 1 1 0 0 ;%5
+                                    0 0 0 0 0 0 0 1 0 ;%6
+                                    0 0 0 0 0 0 0 1 1 ;%7
+                                    0 0 0 0 0 0 0 0 1 ;%8
+                                    0 0 0 0 0 0 0 0 0];%9
+    wingShape.M = sum(sum(wingShape.ConnectivityMatrix));
+    wingShape.ConnectionLengths = [25; 50; 75; %1
+                                   25; 25; %2
+                                   25; 50; %3
+                                   25; 110; %4
+                                   25; 85; %5
+                                   85; %6
+                                   25; 40; %7
+                                   15; %8
+                                   ]';
+    wingShape.ConnectionLengthMatrix = zeros(wingShape.N,wingShape.N);
+    k = 0;
+    for j = 1:wingShape.N
+        for i = 1:wingShape.N
+            if wingShape.ConnectivityMatrix(j,i) == 1
+                k = k + 1;
+                wingShape.ConnectionLengthMatrix(j,i) = wingShape.ConnectionLengths(k);
+            end
+        end
+    end
+end
+
