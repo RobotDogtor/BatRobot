@@ -2,6 +2,21 @@ function [p3x_1,p3y_1,p3x_2,p3y_2] = ThirdPointSolver(p1x,p1y,p2x,p2y,d13,d23)
 %THIRDPOINTSOLVER this function takes in two, 2D points and a distance from
 %each of these two points and then solves for a third point that is that
 %distance from each point. This solver provides two solutions.
+
+%to avoid NAN switch x and y
+if (p1y == p2y)
+    switched = true;
+    tempp1y = p1y;
+    tempp2y = p2y;
+    p1y = p1x;
+    p2y = p2x;
+    p1x = tempp1y;
+    p2x = tempp2y;
+else
+    switched = false;
+end
+
+%solve for points
     alpha = d13^2 - d23^2 - (p1x^2-p2x^2) - (p1y^2-p2y^2);
     m = -(p1x-p2x)/(p1y-p2y);
     b = -0.5*alpha/(p1y-p2y);
@@ -18,6 +33,16 @@ function [p3x_1,p3y_1,p3x_2,p3y_2] = ThirdPointSolver(p1x,p1y,p2x,p2y,d13,d23)
     p3y_2 = m*p3x_2 + b;
     
     %% Should throw error if imaginary: circles do not intersect
-    
+
+%switch back if necessary
+if switched
+    tempp3y1 = p3y_1;
+    tempp3y2 = p3y_2;
+    p3y_1 = p3x_1;
+    p3y_2 = p3x_2;
+    p3x_1 = tempp3y1;
+    p3x_2 = tempp3y2;
+end
+
 end
 
