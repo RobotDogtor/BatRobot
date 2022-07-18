@@ -10,7 +10,20 @@ function [wingPoints2d,wingPoints3d] = WingPointSolver(wingShape,alpha,beta)
 %% Solve all in 2d
 wp1 = [0; 0; 0];
 wp2 = [0; -beta; 0];
+[p3x,p3y] = ThirdPointSolver_Outer(wp1(1),wp1(2),wp2(1),wp2(2),w1,w2);
+wp3 = [p3x; p3y; 0];
 
+% Check all prior connections
+toFind = 3:wingShape.N
+totalPriorConnections = sum(wingShape.ConnectivityMatrix);
+foundPoints = [1 2];
+skippedPoints = [];
+% First find all well defined points - one viable solution or 3 prior
+% points
+for i = 3:wingShape.N
+
+
+    
 
 [p3x,p3y] = ThirdPointSolver_Outer(wp1(1),wp1(2),wp2(1),wp2(2),w1,w2);
 wp3 = [p3x; p3y; 0];

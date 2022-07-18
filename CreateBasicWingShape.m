@@ -12,13 +12,16 @@ function wingShape = CreateBasicWingShape()
 %                      many points, then each point is connected to each
 %                      other.
 % ConnectionLengths - 1xM array of lenghts of connections between points.
+% ConnectionLengthMatrix - NxN connectivity matrix with entries equal to
+%                          connection length
+% FullConnectivityMatrix - NxN connectivity matrix, full symmetric
 
 %Millimeters!
 
 %Note: the top left 2x2 corner of the connectivity matrix should always be
-%zero. It is assumed that point wp1 is the origin of the wing, and point
-%wp2 is directly below wp1 at a distance beta, which is the shoulder
-%distance, one of the two independent variables.
+%      zero. It is assumed that point wp1 is the origin of the wing, and point
+%      wp2 is directly below wp1 at a distance beta, which is the shoulder
+%      distance, one of the two independent variables.
 
     wingShape.N = 9;
     %                               1 2 3 4 5 6 7 8 9
@@ -41,15 +44,27 @@ function wingShape = CreateBasicWingShape()
                                    25; 40; %7
                                    15; %8
                                    ]';
+
+    %% Calculations for Representations
     wingShape.ConnectionLengthMatrix = zeros(wingShape.N,wingShape.N);
+    wingShape.AllConnectionLines = zeros(wingShape.M,2);
     k = 0;
     for j = 1:wingShape.N
         for i = 1:wingShape.N
             if wingShape.ConnectivityMatrix(j,i) == 1
                 k = k + 1;
                 wingShape.ConnectionLengthMatrix(j,i) = wingShape.ConnectionLengths(k);
+                wingShape.AllConnectionLines(k,:) = [j,i];
             end
         end
+    end
+    wingShape.FullConnectivityMatrix = wingShape.ConnectivityMatrix + wingShape.ConnectivityMatrix';
+
+    % find rigid bodies: find fully connected groups
+    unplacedLines = wingShape.AllConnectionLines;
+    while length(unplacedLines(:,1)>0)
+        findToRemove = [];
+        connected = find(unplacedLines(:,1) == unpleacedLines(1,1));
     end
 end
 

@@ -19,4 +19,10 @@ Each step of the design should have a base functioning setup. Easy practicality 
 
 ## Code Details
 
-There are three independent variables that define a flapping motion for a single DOF wing. The wing angle alpha (zero is arms straight out) and the shoulder distance beta (distance from wp1 to wp2.
+There are three independent variables that define a flapping motion for a single DOF wing. The wing angle alpha (zero is arms straight out) and the shoulder distance beta (distance from wp1 to wp2), each as a function over a full cycle of a process variable theta, and the shape of the wing. The wing shape is the number of points and connections between the struts of the wing, the connectivity matrix between these points, and the distances.
+
+Shape: number of rigid bodies, points on bodies, and connectivity matrix are constant. What can be varied are distances.
+
+Use cheating knowledge for the moment for yohan and trinity.
+
+Look at epipolar plane calculations. Does new light fix things?
