@@ -4,6 +4,9 @@ clc
 clear
 close all
 
+addpath ./OriginalPlotting
+addpath ./Library
+
 %% Create wing
 wingShape = CreateBasicWingShape();
 
