@@ -45,6 +45,9 @@ function wingShape = CreateBasicWingShape()
                                    15; %8
                                    ]';
 
+    wingShape.tailPoint = [-155; -15; 0];
+    
+
     %% Calculations for Representations
     wingShape.ConnectionLengthMatrix = zeros(wingShape.N,wingShape.N);
     wingShape.AllConnectionLines = zeros(wingShape.M,2);
