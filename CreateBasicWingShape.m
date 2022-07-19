@@ -44,6 +44,11 @@ function wingShape = CreateBasicWingShape()
                                    25; 40; %7
                                    15; %8
                                    ]';
+    wingShape.RigidBodies = {[1 3 5 6],
+                             [2 3],
+                             [2 4],
+                             [4 5 7]
+                             }
 
     %% Calculations for Representations
     wingShape.ConnectionLengthMatrix = zeros(wingShape.N,wingShape.N);
@@ -60,11 +65,26 @@ function wingShape = CreateBasicWingShape()
     end
     wingShape.FullConnectivityMatrix = wingShape.ConnectivityMatrix + wingShape.ConnectivityMatrix';
 
-%     % find rigid bodies: find fully connected groups
-%     unplacedLines = wingShape.AllConnectionLines;
-%     while length(unplacedLines(:,1)>0)
-%         findToRemove = [];
-%         connected = find(unplacedLines(:,1) == unpleacedLines(1,1));
-%     end
+    % find rigid bodies: find fully connected groups
+    unplacedLines = wingShape.AllConnectionLines;
+    rigidBodies = [];
+    while length(unplacedLines(:,1))>0
+        connectedLines = find(unplacedLines(:,1) == unplacedLines(1,1));
+        iToRemove = [1];
+        connectedTo = unplacedLines(connectedLines,2); %find points the first is connected to
+        for i = 1:length(connectedTo)-1
+            connectedLines_i = find(unplacedLines(:,1) == connectedTo(i)); %lines connected to ith connection from i
+            for j = i+1:length(connectedTo)
+                if sum(unplacedLines(connectedLines_i,2)==connectedTo(j))>0
+                    %The one to remove is the i of the line from point i to i+1 along original body
+                    iToRemove = [iToRemove connectedLines_i(unplacedLines(connectedLines_i,2)==connectedTo(j))]; %remove line from i to i+1
+                    iToRemove = [iToRemove connectedLines(j)]; %remove original line from 1 to i
+                end
+            end
+        end
+        rigidBodies = [rigidBodies; unplacedLines(1,1) unplacedLines(iToRemove(end),2)];
+        unplacedLines(iToRemove,:) = [];
+    end
+    wingShape.rigidBodies = rigidBodies;
 end
 
