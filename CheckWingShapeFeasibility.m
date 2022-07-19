@@ -12,4 +12,6 @@ totalPriorConnections = sum(wingShape.ConnectivityMatrix);
 check = 0;
 
 % check for non joint overlap
+
+% check if connectivity is possible with the lengths we have
 end

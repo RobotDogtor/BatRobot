@@ -8,11 +8,11 @@ close all
 wingShape = CreateBasicWingShape();
 
 %% Define angle and distance
-alpha = 0;
-beta = 30;
+alpha = 0.1;
+beta = 49.9;
 
 %% Define Wing Points
-[wingPoints2d,wingPoints3d] = WingPointSolver(wingShape,alpha,15)
+[wingPoints2d,wingPoints3d] = WingPointSolver(wingShape,alpha,beta)
 
 %% Define
 
@@ -20,8 +20,11 @@ plotPoints = @(setOfPoints,color) plot3(setOfPoints(1,:),setOfPoints(2,:),setOfP
 plotPointsFlip = @(setOfPoints,color) plot3(setOfPoints(1,:),-setOfPoints(2,:),setOfPoints(3,:),color);
 
 figure('Renderer', 'painters', 'Position', [10 10 1200 700])
-plotPoints(wingPoints3d,'ko')
 hold on
+plotPoints(wingPoints3d,'ko')
+for i = 1:length(wingShape.rigidBodies(:,1))
+    plotPoints([wingPoints3d(:,wingShape.rigidBodies(i,1)) wingPoints3d(:,wingShape.rigidBodies(i,2))],'b-')
+end
 grid on
 axis equal
 axis([-200 50 -200 200 -150 50])
