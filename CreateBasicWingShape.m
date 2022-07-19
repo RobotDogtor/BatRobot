@@ -60,11 +60,11 @@ function wingShape = CreateBasicWingShape()
     end
     wingShape.FullConnectivityMatrix = wingShape.ConnectivityMatrix + wingShape.ConnectivityMatrix';
 
-    % find rigid bodies: find fully connected groups
-    unplacedLines = wingShape.AllConnectionLines;
-    while length(unplacedLines(:,1)>0)
-        findToRemove = [];
-        connected = find(unplacedLines(:,1) == unpleacedLines(1,1));
-    end
+%     % find rigid bodies: find fully connected groups
+%     unplacedLines = wingShape.AllConnectionLines;
+%     while length(unplacedLines(:,1)>0)
+%         findToRemove = [];
+%         connected = find(unplacedLines(:,1) == unpleacedLines(1,1));
+%     end
 end
 
