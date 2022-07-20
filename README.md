@@ -28,4 +28,10 @@ Use cheating knowledge for the moment for yohan and trinity.
 Look at epipolar plane calculations. Does new light fix things?
 
 ## Currently Working
-SHould be currently working for calculating the current version of the bat robot wing (not generalizable yet). Use the SingleOptimizationStepExample as the example. Creates a 2d and 3d set of points.
+Should be currently working for calculating the current version of the bat robot wing (not generalizable yet). Use the SingleOptimizationStepExample as the example. Creates a 2d and 3d set of points.
+
+## Cost Functions
+
+Area Subtended downstroke vs. upstroke.
+
+Function of forward to back (x-direction) width of wing over the whole wingspan.
