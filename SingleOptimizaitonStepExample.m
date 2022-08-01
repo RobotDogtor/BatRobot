@@ -12,7 +12,7 @@ wingShape = CreateBasicWingShape();
 
 %% Define angle and distance
 alpha = 0.1;
-beta = 49.9;
+beta = 30;
 
 %% Define Wing Points
 [wingPoints2d,wingPoints3d] = WingPointSolver(wingShape,alpha,beta)

@@ -44,11 +44,9 @@ function wingShape = CreateBasicWingShape()
                                    25; 40; %7
                                    15; %8
                                    ]';
-    wingShape.RigidBodies = {[1 3 5 6],
-                             [2 3],
-                             [2 4],
-                             [4 5 7]
-                             }
+
+    wingShape.tailPoint = [-155; -15; 0];
+    
 
     %% Calculations for Representations
     wingShape.ConnectionLengthMatrix = zeros(wingShape.N,wingShape.N);
