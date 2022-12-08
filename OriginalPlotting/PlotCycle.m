@@ -14,8 +14,12 @@ s10 = 118.775;
 
 %% Plot Bat Points
 
+writerObj = VideoWriter('myVideo.avi');
+writerObj.FrameRate = 30;
+
 figure('Renderer', 'painters', 'Position', [10 10 1200 700])
-thetaVec = 0:0.1:8*pi;
+thetaVec = 0:0.05:8*pi;
+open(writerObj);
 
 for i = 1:length(thetaVec)
     theta = thetaVec(i);
@@ -44,7 +48,8 @@ for i = 1:length(thetaVec)
     plotPointsFlip(BP.linesR1,'r')
     plotcube([s1*1.5 s1 s1/1.5],[-s1*1.5 -s1/2 -15-s1/1.5],.8,[0 1 0.2]);
     
+    writeVideo(writerObj,getframe(gcf))
     pause(0.001)
     hold off
 end
-
+close(writerObj);
